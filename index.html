@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Detailing Formulier</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Vul je gegevens in voor een glanzende auto!</h1>
+    <h2>We nemen snel contact met je op</h2>
+
+    <form>
+        <div class="mb-3">
+            <label for="EmailInput" class="form-label">E-mailadres</label>
+            <input type="email" class="form-control" id="EmailInput" aria-describedby="emailHelp" placeholder="jouw-email@autodetailer.nl">
+            <div id="emailHelp" class="form-text">We gebruiken je e-mail om contact op te nemen over je afspraak.</div>
+        </div>
+        <div class="mb-3">
+            <label for="TelefoonInput" class="form-label">Telefoonnummer</label>
+            <input type="tel" class="form-control" id="TelefoonInput" placeholder="06-12345678">
+        </div>
+        <div class="mb-3">
+            <label for="AutoMerkModel" class="form-label">Merk en Model van je Auto</label>
+            <input type="text" class="form-control" id="AutoMerkModel" placeholder="Bijvoorbeeld Ford Fiesta">
+        </div>
+        <div class="mb-3">
+            <label for="DatumInput" class="form-label">Gewenste Datum voor Detailing</label>
+            <input type="date" class="form-control" id="DatumInput">
+        </div>
+        <div class="mb-3">
+            <label for="BehandelingSelect" class="form-label">Kies je Detail Behandeling</label>
+            <select class="form-select" id="BehandelingSelect">
+                <option selected>Exterieur Detail</option>
+                <option value="1">Interieur Detail</option>
+                <option value="2">Volledige Detail</option>
+                <option value="3">Keramische Coating</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="Opmerkingen" class="form-label">Opmerkingen of Speciale Verzoeken</label>
+            <textarea class="form-control" id="Opmerkingen" rows="3" placeholder="Heb je specifieke wensen? Laat het ons weten!"></textarea>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckAanvraag">
+            <label class="form-check-label" for="flexCheckAanvraag">
+                Ik ga akkoord met de algemene voorwaarden.
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Verstuur</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
