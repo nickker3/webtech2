@@ -1,0 +1,18 @@
+6 plaatsen met bootstrap.
+Extra pagina maken waar bootstrap objecten worden uitgelegd.
+Keuze uit:
+
+*Menubalk ->> op elke Pagina te zien
+*zoek functie
+*carrousel - >> Home page.
+*formulier met controls ->> Contact pagina
+*meerdere buttons -> in de menu balk
+*validatie
+*dropdowns ->> zit 1 in de contact pagina
+*verschillende lettertype's
+*invoegen afbeeldingen -> in de carrousel op de homepage
+*mogelijkheid om in te loggen -> via de menu balk
+*filtering
+*pop-over -> om in te loggen
+*eigen kleurschakering
+*eigen inbreng. ->> overal
