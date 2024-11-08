@@ -29,4 +29,17 @@ class UserModel extends dbh {
         $stmt->bindParam(':password', $password);
         $stmt->execute();
     }
+
+    public function __construct() {
+        $this->pdo = new PDO('sqlite:../db/database.db');
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+
+    public function getUserByUsername($username) {
+        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE username = :username');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }

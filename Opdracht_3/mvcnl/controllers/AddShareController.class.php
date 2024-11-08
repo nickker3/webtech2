@@ -2,18 +2,16 @@
 // controllers/AddShareController.class.php
 
 class AddShareController {
-    private $shareModel;
+    private ShareModel $shareModel; // Type-aanduiding toegevoegd
 
-    public function __construct($shareModel) {
+    public function __construct(ShareModel $shareModel) {
         $this->shareModel = $shareModel;
     }
 
-    public function addShare($title, $body, $link) {
-        if (!isset($_SESSION['user_id'])) {
-            throw new Exception("U moet ingelogd zijn om een share toe te voegen.");
+    public function addShare($title, $body, $link, $userId) {
+        if (empty($title) || empty($body)) {
+            throw new Exception("Titel en inhoud mogen niet leeg zijn.");
         }
-
-        $userId = $_SESSION['user_id'];
-        return $this->shareModel->createShare($title, $body, $link, $userId);
+        $this->shareModel->createShare($title, $body, $link, $userId);
     }
 }

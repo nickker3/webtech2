@@ -1,10 +1,10 @@
 <?php
 // process_add_share.php
-//session_start();
-include '../classes/ShareModel.class.php';
+session_start();
+
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php?page=login");
+    header("Location: ../index.php?page=login");
     exit;
 }
 

@@ -1,7 +1,7 @@
 <?php
 // process_register.php
-session_start();
-require_once '../includes/class-autoload.inc.php';
+//session_start();
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];

@@ -1,24 +1,19 @@
 <?php
 // index.php
 
-// Start een sessie
+// Start de sessie
 session_start();
 
-// Voeg de autoloader toe
+// Voeg de autoload en helpers toe, alleen hier in de centrale router
 require_once 'includes/class-autoload.inc.php';
+require_once 'includes/helpers.php';
 
-// Controleer of de gebruiker is ingelogd
-function isLoggedIn() {
-    return isset($_SESSION['user_id']);
-}
-
-// Routering op basis van URL-parameters
+// Bepaal de pagina op basis van de URL-parameter 'page'
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-// Header (HTML)
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,21 +21,21 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 </head>
 <body>
 
-<?php
-// Navigatiebalk
-echo '<nav>';
-if (isLoggedIn()) {
-    echo '<a href="index.php?page=home">Home</a> | ';
-    echo '<a href="index.php?page=addShare">Add Share</a> | ';
-    echo '<a href="index.php?page=logout">Logout</a>';
-} else {
-    echo '<a href="index.php?page=home">Home</a> | ';
-    echo '<a href="index.php?page=register">Register</a> | ';
-    echo '<a href="index.php?page=login">Login</a>';
-}
-echo '</nav><hr>';
+<!-- Navigatiebalk -->
+<nav>
+    <a href="index.php?page=home">Home</a> |
+    <?php if (isLoggedIn()): ?>
+        <a href="index.php?page=addShare">Voeg een nieuwe share toe</a> |
+        <a href="index.php?page=logout">Uitloggen</a>
+    <?php else: ?>
+        <a href="index.php?page=register">Registreren</a> |
+        <a href="index.php?page=login">Inloggen</a>
+    <?php endif; ?>
+</nav>
+<hr>
 
-// Routering op basis van de $page-waarde
+<!-- Inhoud van de pagina -->
+<?php
 switch ($page) {
     case 'register':
         require 'views/register.php';
@@ -50,12 +45,14 @@ switch ($page) {
         break;
     case 'addShare':
         if (isLoggedIn()) {
-            require 'add_share.php';
+            require 'views/add_share.php';
         } else {
-            echo "<p>Please log in to add a share.</p>";
+            echo "<p>U moet ingelogd zijn om een share toe te voegen.</p>";
         }
         break;
     case 'logout':
+        // Vernietig de sessie en log de gebruiker uit
+        session_unset();
         session_destroy();
         header("Location: index.php?page=home");
         exit;
@@ -63,7 +60,6 @@ switch ($page) {
         require 'views/home.php';
         break;
 }
-
 ?>
 
 </body>
