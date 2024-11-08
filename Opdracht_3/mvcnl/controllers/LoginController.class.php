@@ -2,25 +2,22 @@
 // controllers/LoginController.class.php
 
 class LoginController {
-    private $userModel;
+    private UserModel $userModel;
 
-    public function __construct($userModel) {
+    public function __construct(UserModel $userModel) {
         $this->userModel = $userModel;
     }
 
-    public function login($username, $password) {
-        $user = $this->userModel->getUserByUsername($username);
+    public function login(string $username, string $password): bool {
+        $user = $this->userModel->login($username, $password);
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user) {
+            // Sla de user_id op in de sessie
             $_SESSION['user_id'] = $user['id'];
             return true;
-        } else {
-            throw new Exception("Onjuiste gebruikersnaam of wachtwoord.");
         }
-    }
 
-    public function logout() {
-        session_unset();
-        session_destroy();
+        // Login mislukt
+        return false;
     }
 }

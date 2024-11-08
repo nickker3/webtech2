@@ -2,7 +2,7 @@
 // controllers/AddShareController.class.php
 
 class AddShareController {
-    private ShareModel $shareModel; // Type-aanduiding toegevoegd
+    private ShareModel $shareModel;
 
     public function __construct(ShareModel $shareModel) {
         $this->shareModel = $shareModel;

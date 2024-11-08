@@ -1,17 +1,30 @@
 <?php
 // index.php
 
-// Start de sessie
 session_start();
 
-// Voeg de autoload en helpers toe, alleen hier in de centrale router
-require_once 'includes/class-autoload.inc.php';
-require_once 'includes/helpers.php';
+require_once __DIR__ . '/includes/class-autoload.inc.php';
+require_once __DIR__ . '/includes/helpers.php';
 
-// Bepaal de pagina op basis van de URL-parameter 'page'
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
+// Verwerk registratie bij een POST-verzoek aan index.php?page=register
+if ($page === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $userModel = new UserModel();
+
+    try {
+        $userModel->register($username, $email, $password);
+        header("Location: index.php?page=login");
+        exit;
+    } catch (Exception $e) {
+        $error = "Fout bij registratie: " . $e->getMessage();
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -21,7 +34,6 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 </head>
 <body>
 
-<!-- Navigatiebalk -->
 <nav>
     <a href="index.php?page=home">Home</a> |
     <?php if (isLoggedIn()): ?>
@@ -34,7 +46,6 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 </nav>
 <hr>
 
-<!-- Inhoud van de pagina -->
 <?php
 switch ($page) {
     case 'register':
@@ -51,7 +62,6 @@ switch ($page) {
         }
         break;
     case 'logout':
-        // Vernietig de sessie en log de gebruiker uit
         session_unset();
         session_destroy();
         header("Location: index.php?page=home");
@@ -61,6 +71,5 @@ switch ($page) {
         break;
 }
 ?>
-
 </body>
 </html>
