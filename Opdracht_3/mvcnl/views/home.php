@@ -6,6 +6,7 @@
 $shareModel = new ShareModel();
 $shares = $shareModel->getAllShares();
 ?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -24,13 +25,18 @@ $shares = $shareModel->getAllShares();
     <p>Er zijn nog geen shares toegevoegd.</p>
 <?php else: ?>
     <?php foreach ($shares as $share): ?>
-        <div>
+        <div style="border: 1px solid #ddd; padding: 10px; margin: 10px 0;">
             <h3><?php echo htmlspecialchars($share['title']); ?></h3>
             <p><?php echo nl2br(htmlspecialchars($share['body'])); ?></p>
             <?php if (!empty($share['link'])): ?>
                 <p><a href="<?php echo htmlspecialchars($share['link']); ?>" target="_blank">Lees meer</a></p>
             <?php endif; ?>
             <p><small>Gepubliceerd op: <?php echo htmlspecialchars($share['created_at']); ?></small></p>
+
+            <?php if (isLoggedIn() && $_SESSION['user_id'] == $share['user_id']): ?>
+                <!-- Delete-link die de gebruiker omleidt naar de delete-verwerking -->
+                <p><a href="index.php?action=deleteShare&id=<?php echo $share['id']; ?>" onclick="return confirm('Weet u zeker dat u deze share wilt verwijderen?');">Verwijderen</a></p>
+            <?php endif; ?>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>

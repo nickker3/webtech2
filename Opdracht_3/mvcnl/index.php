@@ -2,11 +2,27 @@
 // index.php
 
 session_start();
-
 require_once __DIR__ . '/includes/class-autoload.inc.php';
 require_once __DIR__ . '/includes/helpers.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+$action = isset($_GET['action']) ? $_GET['action'] : '';
+
+// Verwijdering verwerken bij een DELETE-verzoek met een geldige ID
+if ($action === 'deleteShare' && isset($_GET['id']) && isLoggedIn()) {
+    $shareId = (int)$_GET['id'];
+    $deleteShareController = new DeleteShareController(new ShareModel());
+
+    if ($deleteShareController->deleteShare($shareId)) {
+        header("Location: index.php?page=home&message=deleted");
+        exit;
+    } else {
+        echo "Er is een fout opgetreden bij het verwijderen van de share.";
+    }
+}
+
+
+//$page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Verwerk registratie bij een POST-verzoek aan index.php?page=register
 if ($page === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
