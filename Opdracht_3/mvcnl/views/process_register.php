@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $registerController->register($username, $email, $password);
-        echo "Registratie succesvol! U kunt nu <a href='index.php?page=login'>inloggen</a>.";
+        echo "Registratie succesvol! U kunt nu <a href='../index.php?page=login'>inloggen</a>.";
     } catch (Exception $e) {
         error_log("Registration error: " . $e->getMessage());
         echo "Registratie mislukt: " . $e->getMessage();
