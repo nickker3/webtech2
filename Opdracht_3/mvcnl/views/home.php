@@ -34,8 +34,10 @@ $shares = $shareModel->getAllShares();
             <p><small>Gepubliceerd op: <?php echo htmlspecialchars($share['created_at']); ?></small></p>
 
             <?php if (isLoggedIn() && $_SESSION['user_id'] == $share['user_id']): ?>
-                <!-- Delete-link die de gebruiker omleidt naar de delete-verwerking -->
-                <p><a href="index.php?action=deleteShare&id=<?php echo $share['id']; ?>" onclick="return confirm('Weet u zeker dat u deze share wilt verwijderen?');">Verwijderen</a></p>
+                <p>
+                    <a href="index.php?action=editShare&id=<?php echo $share['id']; ?>">Bewerken</a> |
+                    <a href="index.php?action=deleteShare&id=<?php echo $share['id']; ?>" onclick="return confirm('Weet u zeker dat u deze share wilt verwijderen?');">Verwijderen</a>
+                </p>
             <?php endif; ?>
         </div>
     <?php endforeach; ?>

@@ -20,7 +20,11 @@ if ($action === 'deleteShare' && isset($_GET['id']) && isLoggedIn()) {
         echo "Er is een fout opgetreden bij het verwijderen van de share.";
     }
 }
-
+// Bewerken van een share
+if ($action === 'editShare' && isset($_GET['id'])) {
+    require 'views/edit_share.php';
+    exit;
+}
 
 //$page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
