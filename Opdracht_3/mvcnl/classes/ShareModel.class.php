@@ -21,7 +21,17 @@ class ShareModel extends Dbh
         $stmt->bindParam(':link', $link);
         $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
+
     }
+
+public function getShareById(int $shareId) {
+    $sql = "SELECT * FROM shares WHERE id = :shareId";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->bindParam(':shareId', $shareId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 
     // Nieuwe methode om een share te verwijderen op basis van het ID
     public function deleteShareById(int $shareId): bool
@@ -30,16 +40,9 @@ class ShareModel extends Dbh
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(':shareId', $shareId, PDO::PARAM_INT);
         return $stmt->execute();
+    }
 
 
-    }
-    public function getShareById(int $shareId) {
-        $sql = "SELECT * FROM shares WHERE id = :shareId";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->bindParam(':shareId', $shareId, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
     public function updateShare(int $shareId, string $title, string $body, ?string $link): bool {
         $sql = "UPDATE shares SET title = :title, body = :body, link = :link WHERE id = :shareId";
         $stmt = $this->connect()->prepare($sql);
